@@ -7,5 +7,23 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
 ```
+
+## Data Cleaning
+
+```{r, message = FALSE}
+# Load Dataset
+sqf = read_csv("./sqf-2018.csv", na = c("(null)", "XXX","N/A")) %>% 
+  janitor::clean_names()
+
+
+```
+
+**Data Cleaning Notes**
+
+* Variables that only have 'Y' and 'NA' as an input were eliminated.
+* Our outcome variable (either arrests or frisk) are categorical outcomes. This will be a good dataset for classification. 
+
 
