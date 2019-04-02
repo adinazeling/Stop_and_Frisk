@@ -18,7 +18,46 @@ library(dplyr)
 sqf = read_csv("./sqf-2018.csv", na = c("(null)", "XXX","N/A")) %>% 
   janitor::clean_names()
 
-
+frisk = sqf %>% 
+  select(-supervising_officer_rank, -suspect_arrested_flag, 
+         -suspect_arrest_offense, -summons_issued_flag, 
+         -summons_offense_description, -searched_flag,
+         -other_contraband_flag, -weapon_found_flag) %>% 
+  mutate(month2 = factor(month2),
+          day2 = factor(day2),
+          stop_was_initiated = factor(stop_was_initiated),
+          issuing_officer_rank = factor(issuing_officer_rank),
+          jurisdiction_description = factor(jurisdiction_description),
+          suspected_crime_description = factor(suspected_crime_description),
+          other_person_stopped_flag = factor(other_person_stopped_flag),
+          officer_in_uniform_flag = factor(officer_in_uniform_flag),
+          frisked_flag = factor(frisked_flag),
+          suspect_sex = factor(suspect_sex),
+          suspect_race_description = factor(suspect_race_description),
+          suspect_body_build_type = factor(suspect_body_build_type),
+          suspect_eye_color = factor(suspect_eye_color),
+          suspect_hair_color = factor(suspect_hair_color),
+          stop_location_boro_name = factor(stop_location_boro_name)) %>% 
+  rename(month = month2,
+         day = day2,
+         initiated = stop_was_initiated,
+         officer_rank = issuing_officer_rank,
+         jurisdiction = jurisdiction_description,
+         obs_duration = observed_duration_minutes,
+         suspected_crime = suspected_crime_description,
+         stop_duration = stop_duration_minutes,
+         other_person_stopped = other_person_stopped_flag,
+         off_in_uniform = officer_in_uniform_flag,
+         frisk = frisked_flag,
+         age = suspect_reported_age,
+         sex = suspect_sex,
+         race = suspect_race_description,
+         height = suspect_height,
+         weight = suspect_weight,
+         body_type = suspect_body_build_type,
+         eye_color = suspect_eye_color,
+         hair_color = suspect_hair_color,
+         boro = stop_location_boro_name)
 ```
 
 **Data Cleaning Notes**
